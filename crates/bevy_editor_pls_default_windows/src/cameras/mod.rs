@@ -72,7 +72,7 @@ impl EditorCamKind {
 #[derive(Default)]
 pub struct CameraWindowState {
     // make sure to keep the `ActiveEditorCamera` marker component in sync with this field
-    editor_cam: EditorCamKind,
+    pub editor_cam: EditorCamKind,
     pub show_ui: bool,
 }
 
