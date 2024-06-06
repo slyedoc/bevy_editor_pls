@@ -18,6 +18,8 @@ pub use egui;
 #[doc(inline)]
 pub use bevy_editor_pls_default_windows as default_windows;
 
+//use transform_gizmo_bevy::{enum_set, GizmoMode, GizmoOptions, GizmoOrientation, TransformGizmoPlugin};
+
 /// Commonly used types and extension traits
 pub mod prelude {
     pub use crate::{AddEditorWindow, EditorPlugin};
@@ -77,6 +79,7 @@ impl EditorPlugin {
     }
 }
 
+
 impl Plugin for EditorPlugin {
     fn build(&self, app: &mut bevy::prelude::App) {
         let window = match self.window {
@@ -94,6 +97,15 @@ impl Plugin for EditorPlugin {
 
         app.add_plugins(bevy_editor_pls_core::EditorPlugin { window });
 
+        // if !app.is_plugin_added::<TransformGizmoPlugin>() {
+        //     app.add_plugins(TransformGizmoPlugin);            
+        // }
+        // app.insert_resource(GizmoOptions {
+        //     gizmo_modes: enum_set!(GizmoMode::Rotate | GizmoMode::Translate | GizmoMode::Scale),
+        //     gizmo_orientation: GizmoOrientation::Global,
+        //     ..default()
+        // });
+        
         // if !app.is_plugin_added::<bevy_framepace::FramepacePlugin>() {
         //     app.add_plugins(bevy_framepace::FramepacePlugin);
         //     app.add_plugins(bevy_framepace::debug::DiagnosticsPlugin);

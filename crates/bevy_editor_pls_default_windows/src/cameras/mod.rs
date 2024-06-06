@@ -31,15 +31,15 @@ pub struct ActiveEditorCamera;
 
 // Marker component for the 3d free camera
 #[derive(Component)]
-struct EditorCamera3dFree;
+pub struct EditorCamera3dFree;
 
 // Marker component for the 3d pan+orbit
 #[derive(Component)]
-struct EditorCamera3dPanOrbit;
+pub struct EditorCamera3dPanOrbit;
 
 // Marker component for the 2d pan+zoom camera
 #[derive(Component)]
-struct EditorCamera2dPanZoom;
+pub struct EditorCamera2dPanZoom;
 
 pub struct CameraWindow;
 
@@ -500,16 +500,16 @@ fn initial_camera_setup(
                 *has_decided_initial_cam = true;
             }
             (false, true) => {
-                camera_state.editor_cam = EditorCamKind::D3PanOrbit;
+                camera_state.editor_cam = EditorCamKind::D3Free;
                 commands
-                    .entity(cameras.p2().single().0)
+                    .entity(cameras.p1().single().0)
                     .insert(ActiveEditorCamera);
                 *has_decided_initial_cam = true;
             }
             (true, true) => {
-                camera_state.editor_cam = EditorCamKind::D3PanOrbit;
+                camera_state.editor_cam = EditorCamKind::D3Free;
                 commands
-                    .entity(cameras.p2().single().0)
+                    .entity(cameras.p1().single().0)
                     .insert(ActiveEditorCamera);
                 *has_decided_initial_cam = true;
             }

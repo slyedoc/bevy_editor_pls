@@ -1,15 +1,15 @@
 use bevy::{
     ecs::query::QueryFilter,
-    prelude::*,
-    render::{camera::CameraProjection, view::RenderLayers},
+    prelude::*, render::view::RenderLayers,
+    //render::{camera::CameraProjection, view::RenderLayers},
 };
 
 use bevy_editor_pls_core::editor_window::{EditorWindow, EditorWindowContext};
 use bevy_inspector_egui::{bevy_inspector::hierarchy::SelectedEntities, egui};
-use egui_gizmo::GizmoMode;
+use transform_gizmo_bevy::GizmoMode;
 
 use crate::{
-    cameras::{ActiveEditorCamera, CameraWindow, EditorCamera, EDITOR_RENDER_LAYER},
+    cameras::{CameraWindow, EditorCamera, EDITOR_RENDER_LAYER},
     hierarchy::HierarchyWindow,
 };
 
@@ -167,54 +167,70 @@ fn add_gizmo_markers(
 }
 
 fn draw_gizmo(
-    ui: &mut egui::Ui,
-    world: &mut World,
-    selected_entities: &SelectedEntities,
-    gizmo_mode: GizmoMode,
+    _ui: &mut egui::Ui,
+    _world: &mut World,
+    _selected_entities: &SelectedEntities,
+    _gizmo_mode: GizmoMode,
+
 ) {
-    let Ok((cam_transform, projection)) = world
-        .query_filtered::<(&GlobalTransform, &Projection), With<ActiveEditorCamera>>()
-        .get_single(world)
-    else {
-        return;
-    };
-    let view_matrix = Mat4::from(cam_transform.affine().inverse());
-    let projection_matrix = projection.get_projection_matrix();
+    // let Ok((cam_transform, projection)) = world
+    //     .query_filtered::<(&GlobalTransform, &Projection), With<ActiveEditorCamera>>()
+    //     .get_single(world)
+    // else {
+    //     return;
+    // };
 
-    if selected_entities.len() != 1 {
-        return;
-    }
+    // let view_matrix = Mat4::from(cam_transform.affine().inverse());
+    // let projection_matrix = projection.get_projection_matrix();
 
-    for selected in selected_entities.iter() {
-        let Some(global_transform) = world.get::<GlobalTransform>(selected) else {
-            continue;
-        };
-        let model_matrix = global_transform.compute_matrix();
+    // if selected_entities.len() != 1 {
+    //     return;
+    // }
 
-        let Some(result) = egui_gizmo::Gizmo::new(selected)
-            .model_matrix(model_matrix.into())
-            .view_matrix(view_matrix.into())
-            .projection_matrix(projection_matrix.into())
-            .orientation(egui_gizmo::GizmoOrientation::Local)
-            .mode(gizmo_mode)
-            .interact(ui)
-        else {
-            continue;
-        };
+    // for selected in selected_entities.iter() {
+        // let Some(global_transform) = world.get::<GlobalTransform>(selected) else {
+        //     continue;
+        // };
+        // let model_matrix = global_transform.compute_matrix();
+        
+        //new
+        // let mut gizmo_options = world.resource_mut::<GizmoOptions>();
+        // gizmo_options.
+        // *gizmo_options.update_config(GizmoConfig {
+        //     view_matrix: view_matrix.into(),
+        //     projection_matrix: projection_matrix.into(),
+        //     viewport,
+        //     modes: self.gizmo_modes,
+        //     orientation: self.gizmo_orientation,
+        //     snapping,
+        //     ..Default::default()
+        // });
 
-        let global_affine = global_transform.affine();
+        // old
+        // // let Some(result) = Gizmo::default()
+        // //     .model_matrix(model_matrix.into())
+        // //     .view_matrix(view_matrix.into())
+        // //     .projection_matrix(projection_matrix.into())
+        // //     .orientation(egui_gizmo::GizmoOrientation::Local)
+        // //     .mode(gizmo_mode)
+        // //     .interact(ui)
+        // // else {
+        // //     continue;
+        // // };
 
-        let mut transform = world.get_mut::<Transform>(selected).unwrap();
+        // let global_affine = global_transform.affine();
 
-        let parent_affine = global_affine * transform.compute_affine().inverse();
-        let inverse_parent_transform = GlobalTransform::from(parent_affine.inverse());
+        // let mut transform = world.get_mut::<Transform>(selected).unwrap();
 
-        let global_transform = Transform {
-            translation: result.translation.into(),
-            rotation: result.rotation.into(),
-            scale: result.scale.into(),
-        };
+        // let parent_affine = global_affine * transform.compute_affine().inverse();
+        // let inverse_parent_transform = GlobalTransform::from(parent_affine.inverse());
 
-        *transform = (inverse_parent_transform * global_transform).into();
-    }
+        // let global_transform = Transform {
+        //     translation: result.translation.into(),
+        //     rotation: result.rotation.into(),
+        //     scale: result.scale.into(),
+        // };
+
+        // *transform = (inverse_parent_transform * global_transform).into();
+    //}
 }

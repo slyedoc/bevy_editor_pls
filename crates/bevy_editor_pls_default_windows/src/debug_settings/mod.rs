@@ -11,6 +11,7 @@ use bevy_inspector_egui::{
     egui::{self, Grid},
     reflect_inspector::ui_for_value,
 };
+use bevy_xpbd_3d::plugins::debug::PhysicsGizmos;
 
 pub struct DebugSettingsWindowState {
     pub pause_time: bool,
@@ -151,6 +152,23 @@ fn debug_ui_options(
         });
         ui.end_row();
 
+        ui.label("AABBs");
+        let mut store = world.resource_mut::<GizmoConfigStore>();
+        let aabb = store.config_mut::<AabbGizmoConfigGroup>().1;
+        ui.checkbox(&mut aabb.draw_all, "");        
+        ui.end_row();
+
+        ui.label("Physics");
+        let mut store = world.resource_mut::<GizmoConfigStore>();
+        let (store, _physics) = store.config_mut::<PhysicsGizmos>();
+        ui_for_value( &mut store.enabled, ui, type_registry);
+        ui.end_row();
+
+        ui.label("NavMesh");
+        let mut show_navmesh = world.resource_mut::<oxidized_navigation::debug_draw::DrawNavMesh>();
+        ui_for_value( &mut show_navmesh.0, ui, type_registry);
+        ui.end_row();
+        
         if !wireframe_enabled {
             state.highlight_selected = false;
         }

@@ -1,5 +1,6 @@
 use bevy::{prelude::*, utils::HashMap};
 use bevy_editor_pls_core::{editor_window::EditorWindow, Editor, EditorEvent};
+use transform_gizmo_bevy::GizmoMode;
 
 #[derive(Debug)]
 pub enum Button {
@@ -240,7 +241,7 @@ pub fn editor_controls_system(
             editor
                 .window_state_mut::<bevy_editor_pls_default_windows::gizmos::GizmoWindow>()
                 .unwrap()
-                .gizmo_mode = egui_gizmo::GizmoMode::Translate;
+                .gizmo_mode = GizmoMode::Translate;
         }
         if controls.just_pressed(
             Action::SetGizmoModeRotate,
@@ -251,7 +252,7 @@ pub fn editor_controls_system(
             editor
                 .window_state_mut::<bevy_editor_pls_default_windows::gizmos::GizmoWindow>()
                 .unwrap()
-                .gizmo_mode = egui_gizmo::GizmoMode::Rotate;
+                .gizmo_mode = GizmoMode::Rotate;
         }
         if controls.just_pressed(
             Action::SetGizmoModeScale,
@@ -262,7 +263,7 @@ pub fn editor_controls_system(
             editor
                 .window_state_mut::<bevy_editor_pls_default_windows::gizmos::GizmoWindow>()
                 .unwrap()
-                .gizmo_mode = egui_gizmo::GizmoMode::Scale;
+                .gizmo_mode = GizmoMode::Scale;
         }
     }
 }
