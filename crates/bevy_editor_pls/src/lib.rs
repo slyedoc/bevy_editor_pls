@@ -11,7 +11,7 @@ use bevy::{
 
 pub use bevy_editor_pls_core::egui_dock;
 #[doc(inline)]
-pub use bevy_editor_pls_core::{editor, editor_window, AddEditorWindow};
+pub use bevy_editor_pls_core::{editor, editor_window, AddEditorWindow, EditorSet};
 pub use egui;
 
 #[cfg(feature = "default_windows")]
@@ -22,7 +22,7 @@ pub use bevy_editor_pls_default_windows as default_windows;
 
 /// Commonly used types and extension traits
 pub mod prelude {
-    pub use crate::{AddEditorWindow, EditorPlugin};
+    pub use crate::{AddEditorWindow, EditorPlugin, EditorSet};
     #[cfg(feature = "default_windows")]
     pub use bevy_editor_pls_default_windows::scenes::NotInScene;
 }
