@@ -164,10 +164,10 @@ fn debug_ui_options(
         ui_for_value( &mut store.enabled, ui, type_registry);
         ui.end_row();
 
-        ui.label("NavMesh");
-        let mut show_navmesh = world.resource_mut::<oxidized_navigation::debug_draw::DrawNavMesh>();
-        ui_for_value( &mut show_navmesh.0, ui, type_registry);
-        ui.end_row();
+        // ui.label("NavMesh");
+        // let mut show_navmesh = world.resource_mut::<oxidized_navigation::debug_draw::DrawNavMesh>();
+        // ui_for_value( &mut show_navmesh.0, ui, type_registry);
+        // ui.end_row();
         
         if !wireframe_enabled {
             state.highlight_selected = false;

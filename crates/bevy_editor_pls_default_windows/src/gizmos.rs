@@ -6,7 +6,7 @@ use bevy::{
 
 use bevy_editor_pls_core::editor_window::{EditorWindow, EditorWindowContext};
 use bevy_inspector_egui::{bevy_inspector::hierarchy::SelectedEntities, egui};
-use transform_gizmo_bevy::GizmoMode;
+//use transform_gizmo_bevy::GizmoMode;
 
 use crate::{
     cameras::{CameraWindow, EditorCamera, EDITOR_RENDER_LAYER},
@@ -15,14 +15,14 @@ use crate::{
 
 pub struct GizmoState {
     pub camera_gizmo_active: bool,
-    pub gizmo_mode: GizmoMode,
+    //pub gizmo_mode: GizmoMode,
 }
 
 impl Default for GizmoState {
     fn default() -> Self {
         Self {
             camera_gizmo_active: true,
-            gizmo_mode: GizmoMode::Translate,
+            //gizmo_mode: GizmoMode::Translate,
         }
     }
 }
@@ -45,13 +45,13 @@ impl EditorWindow for GizmoWindow {
             if let (Some(hierarchy_state), Some(_camera_state)) =
                 (cx.state::<HierarchyWindow>(), cx.state::<CameraWindow>())
             {
-                draw_gizmo(ui, world, &hierarchy_state.selected, gizmo_state.gizmo_mode);
+                //draw_gizmo(ui, world, &hierarchy_state.selected, ); //gizmo_state.gizmo_mode
             }
         }
     }
 
     fn app_setup(app: &mut App) {
-        let mut materials = app.world.resource_mut::<Assets<StandardMaterial>>();
+        let mut materials = app.world_mut().resource_mut::<Assets<StandardMaterial>>();
         let material_light = materials.add(StandardMaterial {
             base_color: Color::rgba_u8(222, 208, 103, 255),
             unlit: true,
@@ -67,10 +67,10 @@ impl EditorWindow for GizmoWindow {
             ..default()
         });
 
-        let mut meshes = app.world.resource_mut::<Assets<Mesh>>();
+        let mut meshes = app.world_mut().resource_mut::<Assets<Mesh>>();
         let sphere = meshes.add(Sphere { radius: 0.3 });
 
-        app.world.insert_resource(GizmoMarkerConfig {
+        app.world_mut().insert_resource(GizmoMarkerConfig {
             point_light_mesh: sphere.clone(),
             point_light_material: material_light.clone(),
             directional_light_mesh: sphere.clone(),
@@ -119,7 +119,7 @@ fn add_gizmo_markers(
                 .entity(entity)
                 .insert(HasGizmoMarker)
                 .with_children(|commands| {
-                    commands.spawn((f(), render_layers, Name::new(name)));
+                    commands.spawn((f(), render_layers.clone(), Name::new(name)));
                 });
         }
     }
@@ -159,7 +159,7 @@ fn add_gizmo_markers(
                         material: gizmo_marker_meshes.camera_material.clone_weak(),
                         ..default()
                     },
-                    render_layers,
+                    render_layers.clone(),
                     Name::new("Camera Gizmo"),
                 ));
             });
@@ -170,7 +170,7 @@ fn draw_gizmo(
     _ui: &mut egui::Ui,
     _world: &mut World,
     _selected_entities: &SelectedEntities,
-    _gizmo_mode: GizmoMode,
+    //_gizmo_mode: GizmoMode,
 
 ) {
     // let Ok((cam_transform, projection)) = world

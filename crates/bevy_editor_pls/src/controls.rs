@@ -1,6 +1,6 @@
 use bevy::{prelude::*, utils::HashMap};
 use bevy_editor_pls_core::{editor_window::EditorWindow, Editor, EditorEvent};
-use transform_gizmo_bevy::GizmoMode;
+//use transform_gizmo_bevy::GizmoMode;
 
 #[derive(Debug)]
 pub enum Button {
@@ -230,42 +230,42 @@ pub fn editor_controls_system(
         editor_events.send(EditorEvent::FocusSelected);
     }
 
-    #[cfg(feature = "default_windows")]
-    {
-        if controls.just_pressed(
-            Action::SetGizmoModeTranslate,
-            &keyboard_input,
-            &mouse_input,
-            &editor,
-        ) {
-            editor
-                .window_state_mut::<bevy_editor_pls_default_windows::gizmos::GizmoWindow>()
-                .unwrap()
-                .gizmo_mode = GizmoMode::Translate;
-        }
-        if controls.just_pressed(
-            Action::SetGizmoModeRotate,
-            &keyboard_input,
-            &mouse_input,
-            &editor,
-        ) {
-            editor
-                .window_state_mut::<bevy_editor_pls_default_windows::gizmos::GizmoWindow>()
-                .unwrap()
-                .gizmo_mode = GizmoMode::Rotate;
-        }
-        if controls.just_pressed(
-            Action::SetGizmoModeScale,
-            &keyboard_input,
-            &mouse_input,
-            &editor,
-        ) {
-            editor
-                .window_state_mut::<bevy_editor_pls_default_windows::gizmos::GizmoWindow>()
-                .unwrap()
-                .gizmo_mode = GizmoMode::Scale;
-        }
-    }
+    //#[cfg(feature = "default_windows")]
+    // {
+    //     if controls.just_pressed(
+    //         Action::SetGizmoModeTranslate,
+    //         &keyboard_input,
+    //         &mouse_input,
+    //         &editor,
+    //     ) {
+    //         editor
+    //             .window_state_mut::<bevy_editor_pls_default_windows::gizmos::GizmoWindow>()
+    //             .unwrap()
+    //             .gizmo_mode = GizmoMode::Translate;
+    //     }
+    //     if controls.just_pressed(
+    //         Action::SetGizmoModeRotate,
+    //         &keyboard_input,
+    //         &mouse_input,
+    //         &editor,
+    //     ) {
+    //         editor
+    //             .window_state_mut::<bevy_editor_pls_default_windows::gizmos::GizmoWindow>()
+    //             .unwrap()
+    //             .gizmo_mode = GizmoMode::Rotate;
+    //     }
+    //     if controls.just_pressed(
+    //         Action::SetGizmoModeScale,
+    //         &keyboard_input,
+    //         &mouse_input,
+    //         &editor,
+    //     ) {
+    //         editor
+    //             .window_state_mut::<bevy_editor_pls_default_windows::gizmos::GizmoWindow>()
+    //             .unwrap()
+    //             .gizmo_mode = GizmoMode::Scale;
+    //     }
+    //}
 }
 
 impl EditorControls {
@@ -396,7 +396,7 @@ impl EditorWindow for ControlsWindow {
             ui.label(egui::RichText::new(action.to_string()).strong());
             let bindings = controls.get(action);
             for binding in bindings {
-                ui.add(egui::Label::new(format!("{}", binding)).wrap(false));
+                ui.add(egui::Label::new(format!("{}", binding)).wrap_mode(egui::TextWrapMode::Extend));
             }
         }
     }

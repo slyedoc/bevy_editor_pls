@@ -65,11 +65,12 @@ fn save_world(
     entities: std::collections::HashSet<Entity>,
 ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let type_registry = world.get_resource::<AppTypeRegistry>().unwrap();
+    let type_registry = type_registry.read();
     let mut scene_builder = DynamicSceneBuilder::from_world(world);
     scene_builder = scene_builder.extract_entities(entities.into_iter());
     let scene = scene_builder.build();
 
-    let ron = scene.serialize_ron(type_registry)?;
+    let ron = scene.serialize(&type_registry)?;
     std::fs::write(name, ron)?;
     Ok(())
 }

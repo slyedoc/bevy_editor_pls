@@ -19,7 +19,7 @@ use crate::hierarchy::{HideInEditor, HierarchyWindow};
 
 use self::camera_3d_panorbit::PanOrbitCamera;
 
-pub const EDITOR_RENDER_LAYER: u8 = 19;
+pub const EDITOR_RENDER_LAYER: usize = 19;
 
 // Present on all editor cameras
 #[derive(Component)]
@@ -232,7 +232,7 @@ fn spawn_editor_cameras(mut commands: Commands, editor: Res<Editor>) {
         HideInEditor,
         Name::new("Editor Camera 3D Free"),
         NotInScene,
-        render_layers,
+        render_layers.clone(),
     ));
 
     commands.spawn((
@@ -254,7 +254,7 @@ fn spawn_editor_cameras(mut commands: Commands, editor: Res<Editor>) {
         HideInEditor,
         Name::new("Editor Camera 3D Pan/Orbit"),
         NotInScene,
-        render_layers,
+        render_layers.clone(),
     ));
 
     commands.spawn((
@@ -275,7 +275,7 @@ fn spawn_editor_cameras(mut commands: Commands, editor: Res<Editor>) {
         HideInEditor,
         Name::new("Editor Camera 2D Pan/Zoom"),
         NotInScene,
-        render_layers,
+        render_layers.clone(),
     ));
 }
 

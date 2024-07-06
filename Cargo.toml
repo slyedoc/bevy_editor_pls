@@ -15,10 +15,10 @@ bevy_editor_pls = { path = "crates/bevy_editor_pls" }
 bevy_editor_pls_core = { path = "crates/bevy_editor_pls_core" }
 bevy_editor_pls_default_windows = { path = "crates/bevy_editor_pls_default_windows" }
 
-bevy-inspector-egui = "0.24.0"
-egui = "0.27.2"
-egui_dock = "0.12"
-transform-gizmo-bevy = "0.1.0"
+bevy-inspector-egui = "0.25.0"
+egui = "0.28"
+egui_dock = "0.13"
+#transform-gizmo-bevy = "0.1.0"
 
 [profile.dev.package."*"]
 opt-level = 2
