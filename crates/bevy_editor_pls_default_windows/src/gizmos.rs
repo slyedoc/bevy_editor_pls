@@ -38,11 +38,11 @@ impl EditorWindow for GizmoWindow {
         ui.label("Gizmos can currently not be configured");
     }
 
-    fn viewport_toolbar_ui(world: &mut World, cx: EditorWindowContext, ui: &mut egui::Ui) {
+    fn viewport_toolbar_ui(_world: &mut World, cx: EditorWindowContext, _ui: &mut egui::Ui) {
         let gizmo_state = cx.state::<GizmoWindow>().unwrap();
 
         if gizmo_state.camera_gizmo_active {
-            if let (Some(hierarchy_state), Some(_camera_state)) =
+            if let (Some(_hierarchy_state), Some(_camera_state)) =
                 (cx.state::<HierarchyWindow>(), cx.state::<CameraWindow>())
             {
                 //draw_gizmo(ui, world, &hierarchy_state.selected, ); //gizmo_state.gizmo_mode
@@ -53,14 +53,14 @@ impl EditorWindow for GizmoWindow {
     fn app_setup(app: &mut App) {
         let mut materials = app.world_mut().resource_mut::<Assets<StandardMaterial>>();
         let material_light = materials.add(StandardMaterial {
-            base_color: Color::rgba_u8(222, 208, 103, 255),
+            base_color: Color::srgba_u8(222, 208, 103, 255),
             unlit: true,
             fog_enabled: false,
             alpha_mode: AlphaMode::Add,
             ..default()
         });
         let material_camera = materials.add(StandardMaterial {
-            base_color: Color::rgb(1.0, 1.0, 1.0),
+            base_color: Color::srgb(1.0, 1.0, 1.0),
             unlit: true,
             fog_enabled: false,
             alpha_mode: AlphaMode::Multiply,
@@ -166,6 +166,7 @@ fn add_gizmo_markers(
     }
 }
 
+#[allow(dead_code)]
 fn draw_gizmo(
     _ui: &mut egui::Ui,
     _world: &mut World,
