@@ -1,5 +1,6 @@
 pub mod debugdump;
 
+use avian3d::debug_render::PhysicsGizmos;
 use bevy::{
     pbr::wireframe::WireframeConfig,
     prelude::*,
@@ -11,7 +12,7 @@ use bevy_inspector_egui::{
     egui::{self, Grid},
     reflect_inspector::ui_for_value,
 };
-use bevy_xpbd_3d::plugins::debug::PhysicsGizmos;
+
 
 pub struct DebugSettingsWindowState {
     pub pause_time: bool,

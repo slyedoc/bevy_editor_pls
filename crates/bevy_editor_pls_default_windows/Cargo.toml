@@ -36,5 +36,5 @@ opener = "0.6.0"
 #transform-gizmo-bevy.workspace = true
 
 # add fuctionally, make this features
-bevy_xpbd_3d = "0.5"
+avian3d = "0.1"
 #oxidized_navigation = { git = "https://github.com/TheGrimsey/oxidized_navigation.git", features = ["xpbd", "debug_draw"]}
